@@ -1,0 +1,21 @@
+# Qt / qmake / Creator
+build/
+bin/
+*.pro.user
+*.pro.user.*
+.qtcreator/
+.qmake.stash
+Makefile*
+object_script.*
+moc_*.cpp
+ui_*.h
+qrc_*.cpp
+
+# IDE
+.vs/
+.vscode/
+*.autosave
+
+# OS
+Thumbs.db
+Desktop.ini

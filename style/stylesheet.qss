@@ -1,0 +1,141 @@
+/* 微信风格主题 */
+
+QMainWindow#MainWindow,
+QStackedWidget#page_stack,
+QDialog#LoginDialog,
+QDialog#RegisterDialog {
+    background-color: #FFFFFF;
+    border: none;
+}
+
+QLabel#title_lb {
+    color: #191919;
+    font-size: 20px;
+    font-weight: bold;
+    padding-top: 12px;
+}
+
+QLabel#logo_lb {
+    background: transparent;
+}
+
+QLabel#err_tip {
+    font-size: 12px;
+    padding: 6px 4px 2px 4px;
+    min-height: 18px;
+}
+
+QLabel#err_tip[state='normal'] {
+    color: #07C160;
+}
+
+QLabel#err_tip[state='err'] {
+    color: #FA5151;
+}
+
+/* 输入框分组（微信卡片式） */
+QFrame#input_frame {
+    background-color: #FFFFFF;
+    border: 1px solid #E5E5E5;
+    border-radius: 4px;
+}
+
+QFrame#divider1,
+QFrame#divider2,
+QFrame#divider3 {
+    background-color: #E5E5E5;
+    border: none;
+    max-height: 1px;
+}
+
+QFrame#input_frame QLineEdit,
+QLineEdit#varify_edit {
+    background-color: #FFFFFF;
+    border: none;
+    border-radius: 0;
+    padding: 10px 14px;
+    color: #191919;
+    font-size: 14px;
+    selection-background-color: #95EC69;
+    selection-color: #191919;
+}
+
+QLineEdit::placeholder {
+    color: #B2B2B2;
+}
+
+QLineEdit#varify_edit {
+    border: 1px solid #E5E5E5;
+    border-radius: 4px;
+}
+
+QLineEdit#varify_edit:focus {
+    border-color: #07C160;
+}
+
+/* 微信绿主按钮 */
+QPushButton#login_btn,
+QPushButton#sure_btn {
+    background-color: #07C160;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+QPushButton#login_btn:hover,
+QPushButton#sure_btn:hover {
+    background-color: #06AD56;
+}
+
+QPushButton#login_btn:pressed,
+QPushButton#sure_btn:pressed {
+    background-color: #059A4C;
+}
+
+QPushButton#login_btn:disabled,
+QPushButton#sure_btn:disabled {
+    background-color: #91D4A8;
+    color: #FFFFFF;
+}
+
+/* 验证码按钮 */
+QPushButton#varify_btn {
+    background-color: #FFFFFF;
+    color: #07C160;
+    border: 1px solid #07C160;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+QPushButton#varify_btn:hover {
+    background-color: #F0FFF4;
+}
+
+QPushButton#varify_btn:pressed {
+    background-color: #E6F9EC;
+}
+
+QPushButton#varify_btn:disabled {
+    color: #B2B2B2;
+    border-color: #E5E5E5;
+    background-color: #F7F7F7;
+}
+
+/* 微信链接色 */
+QPushButton#reg_btn,
+QPushButton#cancel_btn {
+    color: #576B95;
+    font-size: 14px;
+    background: transparent;
+    border: none;
+    padding: 4px 8px;
+}
+
+QPushButton#reg_btn:hover,
+QPushButton#cancel_btn:hover {
+    color: #3E5A8A;
+}
