@@ -1,6 +1,6 @@
 # IM_frontend
 
-Qt 6 聊天客户端前端（llfcchat），包含登录/注册界面、HTTP 网关请求与微信风格 UI。
+Qt 6 聊天客户端前端，包含登录/注册界面、HTTP 网关请求与微信风格 UI。
 
 **作者：hexing**
 

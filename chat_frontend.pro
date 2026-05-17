@@ -2,7 +2,7 @@ QT += core gui widgets network
 
 CONFIG += c++17
 
-TARGET = llfcchat
+TARGET = IM_frontend
 TEMPLATE = app
 
 DESTDIR = ./bin
