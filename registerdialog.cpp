@@ -11,6 +11,7 @@
 #include "httpmgr.h"
 #include "ui_registerdialog.h"
 
+#include <QDebug>
 #include <QLabel>
 #include <QPixmap>
 #include <QRegularExpression>
@@ -79,6 +80,18 @@ void RegisterDialog::initHttpHandlers()
         showTip(tr("验证码已发送到邮箱，注意查收"), true);
         qDebug() << "email is " << email;
     });
+
+    // day11 注册用户回包
+    _handlers.insert(ReqId::ID_REG_USER, [this](const QJsonObject &jsonObj) {
+        const int error = jsonObj["error"].toInt();
+        if (error != ErrorCodes::SUCCESS) {
+            showTip(tr("参数错误"), false);
+            return;
+        }
+        const auto email = jsonObj["email"].toString();
+        showTip(tr("用户注册成功"), true);
+        qDebug() << "email is " << email;
+    });
 }
 
 void RegisterDialog::on_varify_btn_clicked()
@@ -122,33 +135,48 @@ void RegisterDialog::slot_reg_mod_finish(ReqId id, QString res, ErrorCodes err)
 
 void RegisterDialog::on_sure_btn_clicked()
 {
-    if (ui->user_edit->text().trimmed().isEmpty()) {
+    if (ui->user_edit->text() == "") {
         showTip(tr("用户名不能为空"), false);
         return;
     }
-    if (ui->email_edit->text().trimmed().isEmpty()) {
+
+    if (ui->email_edit->text() == "") {
         showTip(tr("邮箱不能为空"), false);
         return;
     }
-    QRegularExpression emailRegex(R"((\w+)(\.|_)?(\w*)@(\w+)(\.(\w+))+)");
-    if (!emailRegex.match(ui->email_edit->text()).hasMatch()) {
-        showTip(tr("邮箱地址不正确"), false);
+
+    if (ui->pass_edit->text() == "") {
+        showTip(tr("密码不能为空"), false);
         return;
     }
-    const auto pass = ui->pass_edit->text();
-    if (pass.length() < 6 || pass.length() > 15) {
-        showTip(tr("密码长度应为6~15"), false);
+
+    if (ui->confirm_edit->text() == "") {
+        showTip(tr("确认密码不能为空"), false);
         return;
     }
-    if (ui->confirm_edit->text() != pass) {
+
+    if (ui->confirm_edit->text() != ui->pass_edit->text()) {
         showTip(tr("密码和确认密码不匹配"), false);
         return;
     }
-    if (ui->varify_edit->text().trimmed().isEmpty()) {
+
+    if (ui->varify_edit->text() == "") {
         showTip(tr("验证码不能为空"), false);
         return;
     }
-    showTip(tr("注册功能将在后续章节接入服务端"), true);
+
+    // day11 发送 http 请求注册用户
+    QJsonObject json_obj;
+    json_obj["user"] = ui->user_edit->text();
+    json_obj["email"] = ui->email_edit->text();
+    json_obj["passwd"] = ui->pass_edit->text();
+    json_obj["confirm"] = ui->confirm_edit->text();
+    json_obj["varifycode"] = ui->varify_edit->text();
+    HttpMgr::GetInstance()->PostHttpReq(
+        QUrl(gate_url_prefix + QStringLiteral("/user_register")),
+        json_obj,
+        ReqId::ID_REG_USER,
+        Modules::REGISTERMOD);
 }
 
 void RegisterDialog::on_cancel_btn_clicked()
