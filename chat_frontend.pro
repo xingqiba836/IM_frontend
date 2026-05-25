@@ -12,6 +12,8 @@ SOURCES += \
     mainwindow.cpp \
     logindialog.cpp \
     registerdialog.cpp \
+    timerbtn.cpp \
+    clickedlabel.cpp \
     global.cpp \
     httpmgr.cpp
 
@@ -19,6 +21,8 @@ HEADERS += \
     mainwindow.h \
     logindialog.h \
     registerdialog.h \
+    timerbtn.h \
+    clickedlabel.h \
     global.h \
     httpmgr.h \
     singleton.h

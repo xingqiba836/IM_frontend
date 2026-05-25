@@ -136,6 +136,50 @@ QPushButton#cancel_btn {
 }
 
 QPushButton#reg_btn:hover,
-QPushButton#cancel_btn:hover {
+QPushButton#cancel_btn:hover,
+QPushButton#return_btn:hover {
     color: #3E5A8A;
+}
+
+QPushButton#return_btn {
+    color: #576B95;
+    font-size: 14px;
+    background: transparent;
+    border: none;
+    padding: 4px 8px;
+}
+
+QLabel#tip_lb {
+    color: #191919;
+    font-size: 16px;
+    padding: 12px;
+}
+
+#pass_visible[state='unvisible'],
+#confirm_visible[state='unvisible'] {
+    border-image: url(:/res/unvisible.png);
+}
+
+#pass_visible[state='unvisible_hover'],
+#confirm_visible[state='unvisible_hover'] {
+    border-image: url(:/res/unvisible_hover.png);
+}
+
+#pass_visible[state='visible'],
+#confirm_visible[state='visible'] {
+    border-image: url(:/res/visible.png);
+}
+
+#pass_visible[state='visible_hover'],
+#confirm_visible[state='visible_hover'] {
+    border-image: url(:/res/visible_hover.png);
+}
+
+QHBoxLayout#passRowLayout,
+QHBoxLayout#confirmRowLayout {
+    margin-right: 8px;
+}
+
+QFrame#input_frame QHBoxLayout QLineEdit {
+    padding-right: 4px;
 }

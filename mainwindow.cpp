@@ -12,21 +12,9 @@
 #include "registerdialog.h"
 #include "ui_mainwindow.h"
 
-#include <QStackedWidget>
-
-namespace {
-void setupEmbeddedPage(QWidget *page)
-{
-    page->setWindowFlags(Qt::Widget);
-    page->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    page->setAutoFillBackground(true);
-}
-}
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
-    , _stack(nullptr)
     , _login_dlg(nullptr)
     , _reg_dlg(nullptr)
 {
@@ -35,19 +23,10 @@ MainWindow::MainWindow(QWidget *parent)
     setContentsMargins(0, 0, 0, 0);
 
     _login_dlg = new LoginDialog(this);
-    _reg_dlg = new RegisterDialog(this);
-    setupEmbeddedPage(_login_dlg);
-    setupEmbeddedPage(_reg_dlg);
-
-    _stack = new QStackedWidget(this);
-    _stack->setObjectName(QStringLiteral("page_stack"));
-    _stack->setContentsMargins(0, 0, 0, 0);
-    _stack->addWidget(_login_dlg);
-    _stack->addWidget(_reg_dlg);
-    setCentralWidget(_stack);
+    _login_dlg->setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint);
+    setCentralWidget(_login_dlg);
 
     connect(_login_dlg, &LoginDialog::switchRegister, this, &MainWindow::SlotSwitchReg);
-    connect(_reg_dlg, &RegisterDialog::sigSwitchLogin, this, &MainWindow::SlotSwitchLogin);
 }
 
 MainWindow::~MainWindow()
@@ -57,10 +36,27 @@ MainWindow::~MainWindow()
 
 void MainWindow::SlotSwitchReg()
 {
-    _stack->setCurrentWidget(_reg_dlg);
+    _reg_dlg = new RegisterDialog(this);
+    _reg_dlg->hide();
+    _reg_dlg->setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint);
+    connect(_reg_dlg, &RegisterDialog::sigSwitchLogin, this, &MainWindow::SlotSwitchLogin);
+    setCentralWidget(_reg_dlg);
+    if (_login_dlg) {
+        _login_dlg->hide();
+    }
+    _reg_dlg->show();
 }
 
 void MainWindow::SlotSwitchLogin()
 {
-    _stack->setCurrentWidget(_login_dlg);
+    _login_dlg = new LoginDialog(this);
+    _login_dlg->setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint);
+    setCentralWidget(_login_dlg);
+
+    if (_reg_dlg) {
+        _reg_dlg->hide();
+    }
+    _login_dlg->show();
+
+    connect(_login_dlg, &LoginDialog::switchRegister, this, &MainWindow::SlotSwitchReg);
 }

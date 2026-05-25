@@ -14,7 +14,6 @@
 
 class LoginDialog;
 class RegisterDialog;
-class QStackedWidget;
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -36,7 +35,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QStackedWidget *_stack;
     LoginDialog *_login_dlg;
     RegisterDialog *_reg_dlg;
 };
