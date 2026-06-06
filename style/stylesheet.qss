@@ -3,7 +3,8 @@
 QMainWindow#MainWindow,
 QStackedWidget#page_stack,
 QDialog#LoginDialog,
-QDialog#RegisterDialog {
+QDialog#RegisterDialog,
+QDialog#ResetDialog {
     background-color: #FFFFFF;
     border: none;
 }
@@ -156,30 +157,54 @@ QLabel#tip_lb {
 }
 
 #pass_visible[state='unvisible'],
-#confirm_visible[state='unvisible'] {
+#confirm_visible[state='unvisible'],
+#pwd_visible[state='unvisible'] {
     border-image: url(:/res/unvisible.png);
 }
 
 #pass_visible[state='unvisible_hover'],
-#confirm_visible[state='unvisible_hover'] {
+#confirm_visible[state='unvisible_hover'],
+#pwd_visible[state='unvisible_hover'] {
     border-image: url(:/res/unvisible_hover.png);
 }
 
 #pass_visible[state='visible'],
-#confirm_visible[state='visible'] {
+#confirm_visible[state='visible'],
+#pwd_visible[state='visible'] {
     border-image: url(:/res/visible.png);
 }
 
 #pass_visible[state='visible_hover'],
-#confirm_visible[state='visible_hover'] {
+#confirm_visible[state='visible_hover'],
+#pwd_visible[state='visible_hover'] {
     border-image: url(:/res/visible_hover.png);
 }
 
 QHBoxLayout#passRowLayout,
-QHBoxLayout#confirmRowLayout {
+QHBoxLayout#confirmRowLayout,
+QHBoxLayout#pwdRowLayout {
     margin-right: 8px;
 }
 
 QFrame#input_frame QHBoxLayout QLineEdit {
     padding-right: 4px;
+}
+
+#forget_label[state='normal'] {
+    color: #576B95;
+    font-size: 13px;
+    padding: 4px 0;
+}
+
+#forget_label[state='hover'],
+#forget_label[state='selected_hover'] {
+    color: #3E5A8A;
+    font-size: 13px;
+    padding: 4px 0;
+}
+
+#forget_label[state='selected'] {
+    color: #576B95;
+    font-size: 13px;
+    padding: 4px 0;
 }

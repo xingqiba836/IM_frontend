@@ -2,16 +2,20 @@
 
 #include <QMouseEvent>
 
+namespace {
+constexpr int kCountdownSeconds = 60;
+}
+
 TimerBtn::TimerBtn(QWidget *parent)
     : QPushButton(parent)
-    , _counter(10)
+    , _counter(kCountdownSeconds)
 {
     _timer = new QTimer(this);
     connect(_timer, &QTimer::timeout, this, [this]() {
         --_counter;
         if (_counter <= 0) {
             _timer->stop();
-            _counter = 10;
+            _counter = kCountdownSeconds;
             setText(QStringLiteral("获取"));
             setEnabled(true);
             return;

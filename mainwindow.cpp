@@ -10,6 +10,7 @@
 #include "mainwindow.h"
 #include "logindialog.h"
 #include "registerdialog.h"
+#include "resetdialog.h"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -17,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
     , _login_dlg(nullptr)
     , _reg_dlg(nullptr)
+    , _reset_dlg(nullptr)
 {
     ui->setupUi(this);
     setFixedSize(300, 500);
@@ -25,13 +27,18 @@ MainWindow::MainWindow(QWidget *parent)
     _login_dlg = new LoginDialog(this);
     _login_dlg->setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint);
     setCentralWidget(_login_dlg);
-
-    connect(_login_dlg, &LoginDialog::switchRegister, this, &MainWindow::SlotSwitchReg);
+    connectLoginSignals(_login_dlg);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::connectLoginSignals(LoginDialog *dlg)
+{
+    connect(dlg, &LoginDialog::switchRegister, this, &MainWindow::SlotSwitchReg);
+    connect(dlg, &LoginDialog::switchReset, this, &MainWindow::SlotSwitchReset);
 }
 
 void MainWindow::SlotSwitchReg()
@@ -57,6 +64,32 @@ void MainWindow::SlotSwitchLogin()
         _reg_dlg->hide();
     }
     _login_dlg->show();
+    connectLoginSignals(_login_dlg);
+}
 
-    connect(_login_dlg, &LoginDialog::switchRegister, this, &MainWindow::SlotSwitchReg);
+void MainWindow::SlotSwitchReset()
+{
+    _reset_dlg = new ResetDialog(this);
+    _reset_dlg->setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint);
+    setCentralWidget(_reset_dlg);
+
+    if (_login_dlg) {
+        _login_dlg->hide();
+    }
+    _reset_dlg->show();
+
+    connect(_reset_dlg, &ResetDialog::switchLogin, this, &MainWindow::SlotSwitchLogin2);
+}
+
+void MainWindow::SlotSwitchLogin2()
+{
+    _login_dlg = new LoginDialog(this);
+    _login_dlg->setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint);
+    setCentralWidget(_login_dlg);
+
+    if (_reset_dlg) {
+        _reset_dlg->hide();
+    }
+    _login_dlg->show();
+    connectLoginSignals(_login_dlg);
 }
