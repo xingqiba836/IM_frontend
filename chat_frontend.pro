@@ -23,6 +23,12 @@ SOURCES += \
     chatdialog.cpp \
     chatpage.cpp \
     loadingdlg.cpp \
+    chatview.cpp \
+    chatitembase.cpp \
+    bubbleframe.cpp \
+    textbubble.cpp \
+    picturebubble.cpp \
+    messagetextedit.cpp \
     global.cpp \
     httpmgr.cpp \
     tcpmgr.cpp \
@@ -43,6 +49,12 @@ HEADERS += \
     chatdialog.h \
     chatpage.h \
     loadingdlg.h \
+    chatview.h \
+    chatitembase.h \
+    bubbleframe.h \
+    textbubble.h \
+    picturebubble.h \
+    messagetextedit.h \
     global.h \
     httpmgr.h \
     tcpmgr.h \

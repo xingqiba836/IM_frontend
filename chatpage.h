@@ -10,6 +10,8 @@
 #ifndef CHATPAGE_H
 #define CHATPAGE_H
 
+#include "global.h"
+
 #include <QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -29,7 +31,14 @@ public:
 protected:
     void paintEvent(QPaintEvent *event) override;
 
+private slots:
+    void on_send_btn_clicked();
+    void on_receive_btn_clicked();
+
 private:
+    void appendMsgList(const QVector<MsgInfo> &msgList, ChatRole role,
+                       const QString &userName, const QString &userIcon);
+
     Ui::ChatPage *ui;
 };
 

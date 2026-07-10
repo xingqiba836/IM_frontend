@@ -11,6 +11,8 @@
 #define GLOBAL_H
 
 #include <QString>
+#include <QPixmap>
+#include <QVector>
 #include <QWidget>
 #include <functional>
 
@@ -90,6 +92,17 @@ enum class ChatUIMode {
     ChatMode = 0,
     ContactMode = 1,
     SearchMode = 2,
+};
+
+enum class ChatRole {
+    Self,
+    Other,
+};
+
+struct MsgInfo {
+    QString msgFlag;
+    QString content;
+    QPixmap pixmap;
 };
 
 #endif // GLOBAL_H

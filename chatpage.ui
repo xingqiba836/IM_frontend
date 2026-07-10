@@ -117,12 +117,12 @@
        <number>0</number>
       </property>
       <item>
-       <widget class="QTextEdit" name="chatEdit">
-        <property name="readOnly">
-         <bool>true</bool>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::NoFrame</enum>
+       <widget class="ChatView" name="chat_data_list" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>1</horstretch>
+          <verstretch>1</verstretch>
+         </sizepolicy>
         </property>
        </widget>
       </item>
@@ -208,7 +208,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QTextEdit" name="chat_input">
+       <widget class="MessageTextEdit" name="chatEdit">
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -313,6 +313,17 @@
    <class>ClickedLabel</class>
    <extends>QLabel</extends>
    <header location="global">clickedlabel.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ChatView</class>
+   <extends>QWidget</extends>
+   <header location="global">chatview.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MessageTextEdit</class>
+   <extends>QTextEdit</extends>
+   <header location="global">messagetextedit.h</header>
   </customwidget>
  </customwidgets>
  <resources>

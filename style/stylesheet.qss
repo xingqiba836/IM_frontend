@@ -367,11 +367,26 @@ ChatPage QLabel#title_lb {
     padding-top: 0;
 }
 
+#chat_area {
+    border: none;
+    background: transparent;
+}
+
+#chat_bg {
+    background-color: #F5F5F5;
+}
+
+#chat_user_name {
+    color: #999999;
+    font-family: "Microsoft YaHei";
+    font-size: 12px;
+}
+
 #chatEdit {
     background: #ffffff;
     border: none;
     font-family: "Microsoft YaHei";
-    font-size: 18px;
+    font-size: 14px;
     padding: 5px;
 }
 
@@ -455,10 +470,4 @@ ChatPage QLabel#title_lb {
 
 #file_lb[state='press'] {
     border-image: url(:/res/filedir_press.png);
-}
-
-QTextEdit#chat_input {
-    background-color: #FFFFFF;
-    border-top: 1px solid #E0E0E0;
-    padding: 8px;
 }
