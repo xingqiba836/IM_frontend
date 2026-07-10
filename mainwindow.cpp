@@ -8,10 +8,16 @@
  *
  *****************************************************************************/
 #include "mainwindow.h"
+#include "chatdialog.h"
 #include "logindialog.h"
 #include "registerdialog.h"
 #include "resetdialog.h"
+#include "tcpmgr.h"
 #include "ui_mainwindow.h"
+
+#include <QTimer>
+#include <QIcon>
+#include <QWidget>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -19,8 +25,10 @@ MainWindow::MainWindow(QWidget *parent)
     , _login_dlg(nullptr)
     , _reg_dlg(nullptr)
     , _reset_dlg(nullptr)
+    , _chat_dlg(nullptr)
 {
     ui->setupUi(this);
+    setWindowIcon(QIcon(QStringLiteral(":/res/wechat.png")));
     setFixedSize(300, 500);
     setContentsMargins(0, 0, 0, 0);
 
@@ -28,6 +36,12 @@ MainWindow::MainWindow(QWidget *parent)
     _login_dlg->setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint);
     setCentralWidget(_login_dlg);
     connectLoginSignals(_login_dlg);
+
+    connect(TcpMgr::GetInstance().get(), &TcpMgr::sig_swich_chatdlg,
+            this, &MainWindow::SlotSwitchChat);
+
+    // day18: 方便测试，启动后直接进入聊天界面
+    QTimer::singleShot(0, this, &MainWindow::SlotSwitchChat);
 }
 
 MainWindow::~MainWindow()
@@ -39,6 +53,30 @@ void MainWindow::connectLoginSignals(LoginDialog *dlg)
 {
     connect(dlg, &LoginDialog::switchRegister, this, &MainWindow::SlotSwitchReg);
     connect(dlg, &LoginDialog::switchReset, this, &MainWindow::SlotSwitchReset);
+}
+
+void MainWindow::SlotSwitchChat()
+{
+    if (!_chat_dlg) {
+        _chat_dlg = new ChatDialog(this);
+    }
+    _chat_dlg->setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint);
+    setCentralWidget(_chat_dlg);
+    _chat_dlg->show();
+
+    if (_login_dlg) {
+        _login_dlg->hide();
+    }
+    if (_reg_dlg) {
+        _reg_dlg->hide();
+    }
+    if (_reset_dlg) {
+        _reset_dlg->hide();
+    }
+
+    setMinimumSize(QSize(1050, 900));
+    setMaximumSize(QWIDGETSIZE_MAX, QWIDGETSIZE_MAX);
+    resize(1050, 900);
 }
 
 void MainWindow::SlotSwitchReg()
@@ -65,6 +103,10 @@ void MainWindow::SlotSwitchLogin()
     }
     _login_dlg->show();
     connectLoginSignals(_login_dlg);
+
+    setMinimumSize(QSize(300, 500));
+    setMaximumSize(QSize(300, 500));
+    setFixedSize(300, 500);
 }
 
 void MainWindow::SlotSwitchReset()
@@ -92,4 +134,8 @@ void MainWindow::SlotSwitchLogin2()
     }
     _login_dlg->show();
     connectLoginSignals(_login_dlg);
+
+    setMinimumSize(QSize(300, 500));
+    setMaximumSize(QSize(300, 500));
+    setFixedSize(300, 500);
 }

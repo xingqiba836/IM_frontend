@@ -8,11 +8,14 @@
  *
  *****************************************************************************/
 #include "tcpmgr.h"
+#include "usermgr.h"
 
 #include <QAbstractSocket>
 #include <QDataStream>
 #include <QDebug>
 #include <QIODevice>
+#include <QJsonDocument>
+#include <QJsonObject>
 
 TcpMgr::TcpMgr()
     : _host(QString())
@@ -54,6 +57,7 @@ TcpMgr::TcpMgr()
             qDebug() << "receive body msg is " << messageBody;
 
             _buffer = _buffer.mid(_message_len);
+            handleMsg(static_cast<ReqId>(_message_id), _message_len, messageBody);
         }
     });
 
@@ -89,6 +93,52 @@ TcpMgr::TcpMgr()
     });
 
     connect(this, &TcpMgr::sig_send_data, this, &TcpMgr::slot_send_data);
+    initHandlers();
+}
+
+void TcpMgr::initHandlers()
+{
+    _handlers.insert(ReqId::ID_CHAT_LOGIN_RSP, [this](ReqId id, int len, QByteArray data) {
+        Q_UNUSED(len);
+        qDebug() << "handle id is " << id << " data is " << data;
+
+        const QJsonDocument jsonDoc = QJsonDocument::fromJson(data);
+        if (jsonDoc.isNull()) {
+            qDebug() << "Failed to create QJsonDocument.";
+            return;
+        }
+
+        const QJsonObject jsonObj = jsonDoc.object();
+        if (!jsonObj.contains("error")) {
+            const int err = ErrorCodes::ERR_JSON;
+            qDebug() << "Login Failed, err is Json Parse Err" << err;
+            emit sig_login_failed(err);
+            return;
+        }
+
+        const int err = jsonObj["error"].toInt();
+        if (err != ErrorCodes::SUCCESS) {
+            qDebug() << "Login Failed, err is " << err;
+            emit sig_login_failed(err);
+            return;
+        }
+
+        UserMgr::GetInstance()->SetUid(jsonObj["uid"].toInt());
+        UserMgr::GetInstance()->SetName(jsonObj["name"].toString());
+        UserMgr::GetInstance()->SetToken(jsonObj["token"].toString());
+        emit sig_swich_chatdlg();
+    });
+}
+
+void TcpMgr::handleMsg(ReqId id, int len, const QByteArray &data)
+{
+    const auto find_iter = _handlers.find(id);
+    if (find_iter == _handlers.end()) {
+        qDebug() << "not found id [" << id << "] to handle";
+        return;
+    }
+
+    find_iter.value()(id, len, data);
 }
 
 void TcpMgr::slot_tcp_connect(ServerInfo si)

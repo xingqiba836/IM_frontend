@@ -43,6 +43,7 @@ int main(int argc, char *argv[])
     }
 
     MainWindow w;
+    w.setWindowIcon(QIcon(QStringLiteral(":/res/wechat.png")));
     w.show();
 
     return a.exec();

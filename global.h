@@ -32,6 +32,7 @@ enum ReqId {
     ID_RESET_PWD = 1003,
     ID_LOGIN_USER = 1004,
     ID_CHAT_LOGIN = 1005,
+    ID_CHAT_LOGIN_RSP = 1006,
 };
 
 enum ErrorCodes {
@@ -76,6 +77,19 @@ enum TipErr {
 enum ClickLbState {
     Normal = 0,
     Selected = 1,
+};
+
+enum ListItemType {
+    CHAT_USER_ITEM = 0,
+    CONTACT_USER_ITEM = 1,
+    SEARCH_USER_ITEM = 2,
+    ADD_USER_TIP_ITEM = 3,
+};
+
+enum class ChatUIMode {
+    ChatMode = 0,
+    ContactMode = 1,
+    SearchMode = 2,
 };
 
 #endif // GLOBAL_H

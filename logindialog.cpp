@@ -59,6 +59,8 @@ LoginDialog::LoginDialog(QWidget *parent)
             TcpMgr::GetInstance().get(), &TcpMgr::slot_tcp_connect);
     connect(TcpMgr::GetInstance().get(), &TcpMgr::sig_con_success,
             this, &LoginDialog::slot_tcp_con_finish);
+    connect(TcpMgr::GetInstance().get(), &TcpMgr::sig_login_failed,
+            this, &LoginDialog::slot_login_failed);
 }
 
 LoginDialog::~LoginDialog()
@@ -191,6 +193,13 @@ void LoginDialog::slot_tcp_con_finish(bool bsuccess)
         showTip(tr("网络异常"), false);
         enableBtn(true);
     }
+}
+
+void LoginDialog::slot_login_failed(int err)
+{
+    const QString result = QStringLiteral("登录失败, err is %1").arg(err);
+    showTip(result, false);
+    enableBtn(true);
 }
 
 void LoginDialog::slot_forget_pwd()

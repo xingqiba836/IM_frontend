@@ -12,6 +12,7 @@ public:
     explicit ClickedLabel(QWidget *parent = nullptr);
 
     void mousePressEvent(QMouseEvent *ev) override;
+    void mouseReleaseEvent(QMouseEvent *ev) override;
     void enterEvent(QEnterEvent *event) override;
     void leaveEvent(QEvent *event) override;
     void SetState(const QString &normal = QString(),

@@ -15,9 +15,18 @@ SOURCES += \
     resetdialog.cpp \
     timerbtn.cpp \
     clickedlabel.cpp \
+    clickedbtn.cpp \
+    customizeedit.cpp \
+    chatuserlist.cpp \
+    listitembase.cpp \
+    chatuserwid.cpp \
+    chatdialog.cpp \
+    chatpage.cpp \
+    loadingdlg.cpp \
     global.cpp \
     httpmgr.cpp \
-    tcpmgr.cpp
+    tcpmgr.cpp \
+    usermgr.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -26,22 +35,37 @@ HEADERS += \
     resetdialog.h \
     timerbtn.h \
     clickedlabel.h \
+    clickedbtn.h \
+    customizeedit.h \
+    chatuserlist.h \
+    listitembase.h \
+    chatuserwid.h \
+    chatdialog.h \
+    chatpage.h \
+    loadingdlg.h \
     global.h \
     httpmgr.h \
     tcpmgr.h \
+    usermgr.h \
     singleton.h
 
 FORMS += \
     mainwindow.ui \
     logindialog.ui \
     registerdialog.ui \
-    resetdialog.ui
+    resetdialog.ui \
+    chatdialog.ui \
+    chatpage.ui \
+    loadingdlg.ui \
+    chatuserwid.ui
 
 RESOURCES += \
     rc.qrc
 
 DISTFILES += \
     config.ini
+
+win32:RC_ICONS = res/app.ico
 
 # day05: 构建后将 config.ini 拷贝到运行目录 bin
 win32:CONFIG(release, debug|release) {
