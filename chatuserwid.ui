@@ -27,7 +27,7 @@
     <number>8</number>
    </property>
    <item>
-    <widget class="QLabel" name="icon_lb">
+    <widget class="QWidget" name="icon_wid" native="true">
      <property name="minimumSize">
       <size>
        <width>44</width>
@@ -40,9 +40,32 @@
        <height>44</height>
       </size>
      </property>
-     <property name="text">
-      <string/>
-     </property>
+     <widget class="QLabel" name="icon_lb">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>44</width>
+        <height>44</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="red_point">
+      <property name="geometry">
+       <rect>
+        <x>24</x>
+        <y>0</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
     </widget>
    </item>
    <item>

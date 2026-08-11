@@ -186,9 +186,9 @@ void LoginDialog::slot_tcp_con_finish(bool bsuccess)
         jsonObj["token"] = _token;
 
         const QJsonDocument doc(jsonObj);
-        const QString jsonString = doc.toJson(QJsonDocument::Indented);
+        const QByteArray jsonData = doc.toJson(QJsonDocument::Compact);
 
-        emit TcpMgr::GetInstance()->sig_send_data(ReqId::ID_CHAT_LOGIN, jsonString);
+        emit TcpMgr::GetInstance()->sig_send_data(ReqId::ID_CHAT_LOGIN, jsonData);
     } else {
         showTip(tr("网络异常"), false);
         enableBtn(true);

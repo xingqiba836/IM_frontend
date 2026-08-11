@@ -15,6 +15,7 @@ SOURCES += \
     resetdialog.cpp \
     timerbtn.cpp \
     clickedlabel.cpp \
+    clickedoncelabel.cpp \
     clickedbtn.cpp \
     customizeedit.cpp \
     chatuserlist.cpp \
@@ -29,6 +30,23 @@ SOURCES += \
     textbubble.cpp \
     picturebubble.cpp \
     messagetextedit.cpp \
+    statewidget.cpp \
+    searchlist.cpp \
+    adduseritem.cpp \
+    findsuccessdlg.cpp \
+    findfaildlg.cpp \
+    authenfriend.cpp \
+    friendinfopage.cpp \
+    userinfopage.cpp \
+    applyfriend.cpp \
+    friendlabel.cpp \
+    grouptipitem.cpp \
+    conuseritem.cpp \
+    contactuserlist.cpp \
+    applyfriendlist.cpp \
+    applyfrienditem.cpp \
+    applyfriendpage.cpp \
+    userdata.cpp \
     global.cpp \
     httpmgr.cpp \
     tcpmgr.cpp \
@@ -41,6 +59,7 @@ HEADERS += \
     resetdialog.h \
     timerbtn.h \
     clickedlabel.h \
+    clickedoncelabel.h \
     clickedbtn.h \
     customizeedit.h \
     chatuserlist.h \
@@ -55,6 +74,23 @@ HEADERS += \
     textbubble.h \
     picturebubble.h \
     messagetextedit.h \
+    statewidget.h \
+    searchlist.h \
+    adduseritem.h \
+    findsuccessdlg.h \
+    findfaildlg.h \
+    authenfriend.h \
+    friendinfopage.h \
+    userinfopage.h \
+    applyfriend.h \
+    friendlabel.h \
+    grouptipitem.h \
+    conuseritem.h \
+    contactuserlist.h \
+    applyfriendlist.h \
+    applyfrienditem.h \
+    applyfriendpage.h \
+    userdata.h \
     global.h \
     httpmgr.h \
     tcpmgr.h \
@@ -69,7 +105,19 @@ FORMS += \
     chatdialog.ui \
     chatpage.ui \
     loadingdlg.ui \
-    chatuserwid.ui
+    chatuserwid.ui \
+    adduseritem.ui \
+    findsuccessdlg.ui \
+    findfaildlg.ui \
+    authenfriend.ui \
+    friendinfopage.ui \
+    userinfopage.ui \
+    applyfriend.ui \
+    friendlabel.ui \
+    grouptipitem.ui \
+    conuseritem.ui \
+    applyfrienditem.ui \
+    applyfriendpage.ui
 
 RESOURCES += \
     rc.qrc
@@ -79,13 +127,15 @@ DISTFILES += \
 
 win32:RC_ICONS = res/app.ico
 
-# day05: 构建后将 config.ini 拷贝到运行目录 bin
-win32:CONFIG(release, debug|release) {
+win32 {
     TargetConfig = $${PWD}/config.ini
     TargetConfig = $$replace(TargetConfig, /, \\)
     OutputDir = $${OUT_PWD}/$${DESTDIR}
     OutputDir = $$replace(OutputDir, /, \\)
+    StaticDir = $${PWD}/static
+    StaticDir = $$replace(StaticDir, /, \\)
     QMAKE_POST_LINK += $$quote(copy /Y \"$$TargetConfig\" \"$$OutputDir\" $$escape_expand(\\n\\t))
+    QMAKE_POST_LINK += $$quote(xcopy /Y /E /I \"$$StaticDir\" \"$$OutputDir\\static\\\" $$escape_expand(\\n\\t))
 }
 
 # Default rules for deployment.

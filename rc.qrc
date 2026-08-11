@@ -21,6 +21,28 @@
         <file>res/filedir.png</file>
         <file>res/filedir_hover.png</file>
         <file>res/filedir_press.png</file>
+        <file>res/chat_icon.png</file>
+        <file>res/chat_icon_hover.png</file>
+        <file>res/chat_icon_press.png</file>
+        <file>res/contact_list.png</file>
+        <file>res/contact_list_hover.png</file>
+        <file>res/contact_list_press.png</file>
+        <file>res/addtip.png</file>
+        <file>res/right_tip.png</file>
+        <file>res/arowdown.png</file>
+        <file>res/tipclose.png</file>
+        <file>res/red_point.png</file>
+        <file>res/female.png</file>
+        <file>res/male.png</file>
+        <file>res/msg_chat_normal.png</file>
+        <file>res/msg_chat_hover.png</file>
+        <file>res/msg_chat_press.png</file>
+        <file>res/video_chat_normal.png</file>
+        <file>res/video_chat_hover.png</file>
+        <file>res/video_chat_press.png</file>
+        <file>res/voice_chat_normal.png</file>
+        <file>res/voice_chat_hover.png</file>
+        <file>res/voice_chat_press.png</file>
         <file>style/stylesheet.qss</file>
     </qresource>
 </RCC>
